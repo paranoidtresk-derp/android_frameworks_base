@@ -304,4 +304,10 @@
 
     <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveBatteryLed">true</bool>
+
+    <string-array translatable="false" name="config_customPermissionsList">
+        <item>com.google.android.apps.wellbeing</item>
+        <!-- <item>more packages</item>-->
+    </string-array>
+
 </resources>
