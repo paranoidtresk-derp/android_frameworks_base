@@ -140,4 +140,7 @@
     <!-- Name of the volte and vowifi status bar icon. -->
     <string name="status_bar_volte">VoLTE</string>
     <string name="status_bar_vowifi">VoWiFi</string>
+
+    <!-- Alerting notification header label -->
+    <string name="notification_section_header_alerting">Alerting notifications</string>
 </resources>
