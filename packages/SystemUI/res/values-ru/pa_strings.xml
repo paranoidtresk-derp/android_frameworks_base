@@ -19,6 +19,51 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- OnTheSpot: Action denial button text. [CHAR LIMIT=NONE] -->
+    <string name="on_the_spot_deny">НЕТ, СПАСИБО</string>
+    <!-- OnTheSpot: Action confirmation button text. [CHAR LIMIT=NONE] -->
+    <string name="on_the_spot_confirm">ХОРОШО</string>
+
+    <!-- OnTheSpot: Quick Settings quick pull-down feature description message. [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_quick_pull_down">Вы хотите, чтобы правая часть статусбара полностью открывала панель быстрых настроек?</string>
+    <!-- OnTheSpot: Title of the Quick Settings quick pull-down feature for the reset dialog. [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_quick_pull_down_name">Полное раскрытие быстрых настроек</string>
+    <string name="quick_settings_quick_pull_down_summary">Автоматически раскрывать быстрые настройки при вытягивании из боковой части экрана</string>
+
+    <!-- OnTheSpot: Extended Restart feature description message. [CHAR LIMIT=NONE] -->
+    <string name="extended_restart">Хотите ли вы получить доступ к расширенным параметрам перезагрузки при долгом нажатии кнопки перезагрузки?</string>
+    <!-- OnTheSpot: Title of the Extended Restart feature for the reset dialog. [CHAR LIMIT=NONE] -->
+    <string name="extended_restart_name">Расширенная перезагрузка</string>
+    <string name="extended_restart_summary">Перезагружать устройство в различных режимах, таких как загрузчик и восстановление</string>
+
+    <!-- Screen Stabilization -->
+    <string name="quick_settings_stabilization_label">Стабилизация экрана</string>
+    <string name="quick_settings_stabilization_off">Стабилизация отключена</string>
+    <string name="quick_settings_stabilization_on">Стабилизация включена</string>
+    <string name="low_label">Низкий</string>
+    <string name="high_label">High</string>
+    <string name="stabilization_velocity_friction">Скорость трения</string>
+    <string name="stabilization_velocity_amplitude">Скорость амплитуды</string>
+    <string name="stabilization_position_friction">Позиция трения</string>
+
+    <!-- Caffeine tile -->
+    <string name="quick_settings_caffeine_label">Caffeine</string>
+    <string name="accessibility_quick_settings_caffeine_off">Caffeine выкл</string>
+    <string name="accessibility_quick_settings_caffeine_on">Caffeine вкл</string>
+
+    <!-- Screen record -->
+    <string name="quick_settings_screen_record_label">Запись экрана</string>
+    <string name="quick_settings_screen_record_start">Начать</string>
+    <string name="quick_settings_screen_record_stop">Остановить</string>
+    <string name="screenrecord_audio_label">Записывать звук</string>
+    <string name="screenrecord_description">Во время записи система Android может захватывать любую конфиденциальную информацию, которая видна на вашем экране или воспроизводится на вашем устройстве. Это включает пароли, информацию об оплате, фотографии, сообщения и аудио.</string>
+    <string name="screenrecord_mic_label">Микрофон</string>
+    <string name="screenrecord_ongoing_screen_and_audio">Записывать экран и звук</string>
+    <string name="screenrecord_ongoing_screen_only">Записывать экран</string>
+    <string name="screenrecord_start">Начать</string>
+    <string name="screenrecord_start_label">Начать запись?</string>
+    <string name="screenrecord_taps_label">Показывать касания экрана</string>
+
     <!-- Language toggle tile -->
     <string name="quick_settings_locale_label">Язык</string>
     <string name="quick_settings_locale_more_locales_toast">Пожалуйста, настройте несколько языков, чтобы активировать функцию переключения</string>
