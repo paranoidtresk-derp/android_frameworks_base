@@ -4308,6 +4308,16 @@ public final class Settings {
         public static final Validator LOCKSCREEN_SOUNDS_ENABLED_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
+         * Whether to play tone when the mo call is connected.
+         * @hide
+         */
+        @UnsupportedAppUsage
+        public static final String CALL_CONNECTED_TONE_ENABLED = "call_connected_tone_enabled";
+
+        /** @hide */
+        public static final Validator CALL_CONNECTED_TONE_ENABLED_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
          * Whether the lockscreen should be completely disabled.
          * @hide
          */
@@ -4811,6 +4821,7 @@ public final class Settings {
             POWER_SOUNDS_ENABLED,       // moved to global
             DOCK_SOUNDS_ENABLED,        // moved to global
             LOCKSCREEN_SOUNDS_ENABLED,
+            CALL_CONNECTED_TONE_ENABLED,
             SHOW_WEB_SUGGESTIONS,
             SIP_CALL_OPTIONS,
             SIP_RECEIVE_CALLS,
@@ -4934,6 +4945,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(POWER_SOUNDS_ENABLED);
             PRIVATE_SETTINGS.add(DOCK_SOUNDS_ENABLED);
             PRIVATE_SETTINGS.add(LOCKSCREEN_SOUNDS_ENABLED);
+            PRIVATE_SETTINGS.add(CALL_CONNECTED_TONE_ENABLED);
             PRIVATE_SETTINGS.add(LOCKSCREEN_DISABLED);
             PRIVATE_SETTINGS.add(LOW_BATTERY_SOUND);
             PRIVATE_SETTINGS.add(DESK_DOCK_SOUND);
@@ -5055,6 +5067,7 @@ public final class Settings {
             VALIDATORS.put(WINDOW_ORIENTATION_LISTENER_LOG,
                     WINDOW_ORIENTATION_LISTENER_LOG_VALIDATOR);
             VALIDATORS.put(LOCKSCREEN_SOUNDS_ENABLED, LOCKSCREEN_SOUNDS_ENABLED_VALIDATOR);
+            VALIDATORS.put(CALL_CONNECTED_TONE_ENABLED, CALL_CONNECTED_TONE_ENABLED_VALIDATOR);
             VALIDATORS.put(LOCKSCREEN_DISABLED, LOCKSCREEN_DISABLED_VALIDATOR);
             VALIDATORS.put(SIP_RECEIVE_CALLS, SIP_RECEIVE_CALLS_VALIDATOR);
             VALIDATORS.put(SIP_CALL_OPTIONS, SIP_CALL_OPTIONS_VALIDATOR);
