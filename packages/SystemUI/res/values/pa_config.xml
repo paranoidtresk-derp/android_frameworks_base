@@ -43,4 +43,8 @@
 
     <!-- Whether to use the mask for the quicksettings icons-->
     <bool name="config_useMaskForQs">true</bool>
+
+    <!-- Allow devices to use a lower screenrecording bitrate because of old hardware -->
+    <bool name="config_device_needs_lower_bitrate">false</bool>
+
 </resources>
