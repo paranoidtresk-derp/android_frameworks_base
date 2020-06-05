@@ -77,7 +77,6 @@ import static android.os.Process.readProcFile;
 import static android.os.Process.removeAllProcessGroups;
 import static android.os.Process.sendSignal;
 import static android.os.Process.setProcessGroup;
-import static android.os.Process.setCgroupProcsProcessGroup;
 import static android.os.Process.setThreadPriority;
 import static android.os.Process.setThreadScheduler;
 import static android.provider.Settings.Global.ALWAYS_FINISH_ACTIVITIES;
@@ -273,8 +272,8 @@ import android.os.WorkSource;
 import android.os.storage.IStorageManager;
 import android.os.storage.StorageManager;
 import android.provider.DeviceConfig;
-import android.provider.Settings;
 import android.provider.DeviceConfig.Properties;
+import android.provider.Settings;
 import android.server.ServerProtoEnums;
 import android.sysprop.VoldProperties;
 import android.text.TextUtils;
@@ -357,7 +356,6 @@ import com.android.server.contentcapture.ContentCaptureManagerInternal;
 import com.android.server.firewall.IntentFirewall;
 import com.android.server.job.JobSchedulerInternal;
 import com.android.server.pm.Installer;
-import com.android.server.pm.Installer.InstallerException;
 import com.android.server.uri.GrantUri;
 import com.android.server.uri.UriGrantsManagerInternal;
 import com.android.server.utils.PriorityDump;
@@ -370,8 +368,6 @@ import com.android.server.wm.ActivityTaskManagerService;
 import com.android.server.wm.WindowManagerService;
 import com.android.server.wm.WindowProcessController;
 import com.android.server.ActivityTriggerService;
-
-import dalvik.system.VMRuntime;
 
 import libcore.util.EmptyArray;
 
@@ -4938,7 +4934,7 @@ public class ActivityManagerService extends IActivityManager.Stub
         }
 
         app.curAdj = app.setAdj = app.verifiedAdj = ProcessList.INVALID_ADJ;
-        app.setCurrentSchedulingGroup(app.setSchedGroup = ProcessList.SCHED_GROUP_DEFAULT);
+        mOomAdjuster.setAttachingSchedGroupLocked(app);
         app.forcingToImportant = null;
         updateProcessForegroundLocked(app, false, 0, false);
         app.hasShownUi = false;
@@ -5288,26 +5284,6 @@ public class ActivityManagerService extends IActivityManager.Stub
                 return;
             }
             mCallFinishBooting = false;
-        }
-
-        ArraySet<String> completedIsas = new ArraySet<String>();
-        for (String abi : Build.SUPPORTED_ABIS) {
-            ZYGOTE_PROCESS.establishZygoteConnectionForAbi(abi);
-            final String instructionSet = VMRuntime.getInstructionSet(abi);
-            if (!completedIsas.contains(instructionSet)) {
-                try {
-                    mInstaller.markBootComplete(VMRuntime.getInstructionSet(abi));
-                } catch (InstallerException e) {
-                    if (!VMRuntime.didPruneDalvikCache()) {
-                        // This is technically not the right filter, as different zygotes may
-                        // have made different pruning decisions. But the log is best effort,
-                        // anyways.
-                        Slog.w(TAG, "Unable to mark boot complete for abi: " + abi + " (" +
-                                e.getMessage() +")");
-                    }
-                }
-                completedIsas.add(instructionSet);
-            }
         }
 
         IntentFilter pkgFilter = new IntentFilter();
@@ -8346,6 +8322,21 @@ public class ActivityManagerService extends IActivityManager.Stub
         synchronized (this) {
             mProcessObservers.unregister(observer);
         }
+    }
+
+    private boolean isActiveInstrumentation(int uid) {
+        synchronized (ActivityManagerService.this) {
+            for (int i = mActiveInstrumentation.size() - 1; i >= 0; i--) {
+                final ActiveInstrumentation instrumentation = mActiveInstrumentation.get(i);
+                for (int j = instrumentation.mRunningProcesses.size() - 1; j >= 0; j--) {
+                    final ProcessRecord process = instrumentation.mRunningProcesses.get(j);
+                    if (process.uid == uid) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     @Override
@@ -18487,16 +18478,19 @@ public class ActivityManagerService extends IActivityManager.Stub
         }
 
         @Override
-        public void startProcess(String processName, ApplicationInfo info,
-                boolean knownToBeDead, String hostingType, ComponentName hostingName) {
+        public void startProcess(String processName, ApplicationInfo info, boolean knownToBeDead,
+                boolean isTop, String hostingType, ComponentName hostingName) {
             try {
                 if (Trace.isTagEnabled(Trace.TRACE_TAG_ACTIVITY_MANAGER)) {
                     Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, "startProcess:"
                             + processName);
                 }
                 synchronized (ActivityManagerService.this) {
+                    // If the process is known as top app, set a hint so when the process is
+                    // started, the top priority can be applied immediately to avoid cpu being
+                    // preempted by other processes before attaching the process of top app.
                     startProcessLocked(processName, info, knownToBeDead, 0 /* intentFlags */,
-                            new HostingRecord(hostingType, hostingName),
+                            new HostingRecord(hostingType, hostingName, isTop),
                             false /* allowWhileBooting */, false /* isolated */,
                             true /* keepIfLarge */);
                 }
@@ -18596,6 +18590,11 @@ public class ActivityManagerService extends IActivityManager.Stub
         @Override
         public void unregisterProcessObserver(IProcessObserver processObserver) {
             ActivityManagerService.this.unregisterProcessObserver(processObserver);
+        }
+
+        @Override
+        public boolean isActiveInstrumentation(int uid) {
+            return ActivityManagerService.this.isActiveInstrumentation(uid);
         }
     }
 
