@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright 2014-2019 Paranoid Android
+    Copyright 2014-2020 Paranoid Android
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -124,4 +124,28 @@
 
     <!-- Whether device ignores the RSSNR signal implementation -->
     <java-symbol type="bool" name="config_ignoreRssnrSignalLevel" />
+
+    <!-- Button backlight -->
+    <java-symbol type="integer" name="config_buttonBrightnessSettingDefault" />
+    <java-symbol type="bool" name="config_deviceHasVariableButtonBrightness" />
+
+    <!-- Whether device can force navbar disabling -->
+    <java-symbol type="bool" name="config_canForceDisableNavigationBar" />
+
+    <!-- Whether device supports gestures on fingerprint sensor -->
+    <java-symbol type="bool" name="config_supportsGesturesOnFingerprintSensor" />
+
+    <!-- Device hardware keys -->
+    <java-symbol type="integer" name="config_deviceHardwareKeys" />
+    <java-symbol type="integer" name="config_deviceHardwareWakeKeys" />
+
+    <!-- Device keys user-customisable behavior -->
+    <java-symbol type="integer" name="config_longPressOnHomeBehaviorHwkeys" />
+    <java-symbol type="integer" name="config_doubleTapOnHomeBehaviorHwkeys" />
+    <java-symbol type="integer" name="config_longPressOnMenuBehaviorHwkeys" />
+    <java-symbol type="integer" name="config_pressOnAppSwitchBehaviorHwkeys" />
+    <java-symbol type="integer" name="config_longPressOnAppSwitchBehaviorHwkeys" />
+    <java-symbol type="integer" name="config_pressOnAssistBehaviorHwkeys" />
+    <java-symbol type="integer" name="config_longPressOnAssistBehaviorHwkeys" />
+
 </resources>
