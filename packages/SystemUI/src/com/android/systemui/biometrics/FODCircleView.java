@@ -82,6 +82,8 @@ public class FODCircleView extends ImageView {
         new int[]{255, 0}
     };
 
+    private static final int FADE_ANIM_DURATION = 250;
+
     private final int mPositionX;
     private final int mPositionY;
     private final int mSize;
@@ -105,12 +107,14 @@ public class FODCircleView extends ImageView {
     private int mColor;
     private int mColorBackground;
 
+    private boolean mFading;
     private boolean mIsBouncer;
     private boolean mIsDreaming;
     private boolean mIsCircleShowing;
     private boolean mCanUnlockWithFp;
     private boolean mIsShowing;
     private boolean mFpDisabled;
+    private boolean mIsKeyguard;
 
     private Handler mHandler;
 
@@ -142,6 +146,7 @@ public class FODCircleView extends ImageView {
 
         @Override
         public void onKeyguardVisibilityChanged(boolean showing) {
+            mIsKeyguard = showing;
             if (mFODAnimation != null) {
                 mFODAnimation.setAnimationKeyguard(showing);
             }
@@ -365,7 +370,7 @@ public class FODCircleView extends ImageView {
         boolean newIsInside = (x > 0 && x < mSize) && (y > 0 && y < mSize);
 
         if (event.getAction() == MotionEvent.ACTION_DOWN && newIsInside && mIsShowing
-                && mCanUnlockWithFp) {
+                && mCanUnlockWithFp && !mFading) {
             showCircle();
             mFODAnimation.showFODanimation();
             return true;
@@ -477,13 +482,25 @@ public class FODCircleView extends ImageView {
 
         updatePosition();
 
-        dispatchShow();
         setVisibility(View.VISIBLE);
+        dispatchShow();
     }
 
     public void hide() {
         mIsShowing = false;
-        setVisibility(View.GONE);
+        if (mIsKeyguard) {
+            animate().withStartAction(() -> mFading = true)
+                .alpha(0)
+                .setDuration(FADE_ANIM_DURATION)
+                .withEndAction(() -> {
+                    setVisibility(View.GONE);
+                    mFading = false;
+                })
+                .start();
+        } else {
+            setVisibility(View.GONE);
+        }
+
         hideCircle();
         dispatchHide();
     }
