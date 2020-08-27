@@ -4464,6 +4464,12 @@ public final class Settings {
          */
         public static final String LOCK_TO_APP_ENABLED = "lock_to_app_enabled";
 
+        /**
+         * Enable/Disable screenshot sound
+         * @hide
+         */
+        public static final String SCREENSHOT_SOUND = "screenshot_sound";
+
         /** @hide */
         public static final Validator LOCK_TO_APP_ENABLED_VALIDATOR = BOOLEAN_VALIDATOR;
 
@@ -4976,6 +4982,12 @@ public final class Settings {
         public static final String REFRESH_RATE_SETTING = "refresh_rate_setting";
 
         /**
+         * Screenrecord: audio source
+         * @hide
+         */
+        public static final String SCREENRECORD_AUDIO_SOURCE = "screenrecord_audio_source";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5210,6 +5222,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(MENU_WAKE_SCREEN);
             PRIVATE_SETTINGS.add(ASSIST_WAKE_SCREEN);
             PRIVATE_SETTINGS.add(APP_SWITCH_WAKE_SCREEN);
+            PRIVATE_SETTINGS.add(BACK_GESTURE_HEIGHT);
         }
 
         /**
@@ -5329,6 +5342,7 @@ public final class Settings {
             VALIDATORS.put(MENU_WAKE_SCREEN, MENU_WAKE_SCREENN_VALIDATOR);
             VALIDATORS.put(ASSIST_WAKE_SCREEN, ASSIST_WAKE_SCREEN_VALIDATOR);
             VALIDATORS.put(APP_SWITCH_WAKE_SCREEN, APP_SWITCH_WAKE_SCREEN_VALIDATOR);
+            VALIDATORS.put(BACK_GESTURE_HEIGHT, BACK_GESTURE_HEIGHT_VALIDATOR);
         }
 
         /**
@@ -8847,6 +8861,20 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
+         * Whether the torch launch gesture to long press the power button when the
+         * screen is off should be enabled.
+         *
+         * 0: disabled
+         * 1: long tap power for torch
+         * @hide
+         */
+        public static final String TORCH_POWER_BUTTON_GESTURE =
+                "torch_power_button_gesture";
+
+        private static final Validator TORCH_POWER_BUTTON_GESTURE_VALIDATOR =
+                NON_NEGATIVE_INTEGER_VALIDATOR;
+
+        /**
          * Whether the camera double twist gesture to flip between front and back mode should be
          * enabled.
          *
@@ -9595,6 +9623,12 @@ public final class Settings {
         private static final Validator TAP_GESTURE_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
+         * Whether face unlock is allowed only on security view.
+         * @hide
+         */
+        public static final String FACE_UNLOCK_ALWAYS_REQUIRE_SWIPE = "face_unlock_always_require_swipe";
+
+        /**
          * This are the settings to be backed up.
          *
          * NOTE: Settings are backed up and restored in the order they appear
@@ -9668,6 +9702,7 @@ public final class Settings {
             SYNC_PARENT_SOUNDS,
             CAMERA_DOUBLE_TWIST_TO_FLIP_ENABLED,
             CAMERA_DOUBLE_TAP_POWER_GESTURE_DISABLED,
+            TORCH_POWER_BUTTON_GESTURE,
             SYSTEM_NAVIGATION_KEYS_ENABLED,
             QS_TILES,
             DOZE_ENABLED,
@@ -9838,6 +9873,8 @@ public final class Settings {
                     CAMERA_DOUBLE_TWIST_TO_FLIP_ENABLED_VALIDATOR);
             VALIDATORS.put(CAMERA_DOUBLE_TAP_POWER_GESTURE_DISABLED,
                     CAMERA_DOUBLE_TAP_POWER_GESTURE_DISABLED_VALIDATOR);
+            VALIDATORS.put(TORCH_POWER_BUTTON_GESTURE,
+                    TORCH_POWER_BUTTON_GESTURE_VALIDATOR);
             VALIDATORS.put(SYSTEM_NAVIGATION_KEYS_ENABLED,
                     SYSTEM_NAVIGATION_KEYS_ENABLED_VALIDATOR);
             VALIDATORS.put(QS_TILES, QS_TILES_VALIDATOR);

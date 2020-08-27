@@ -370,6 +370,8 @@
   <java-symbol type="integer" name="config_activeTaskDurationHours" />
   <java-symbol type="bool" name="config_windowShowCircularMask" />
   <java-symbol type="bool" name="config_windowEnableCircularEmulatorDisplayOverlay" />
+  <java-symbol type="string" name="config_wifi_softap_acs_supported_frequency_list" />
+  <java-symbol type="bool" name="config_wifi_softap_acs_exclude_6ghz_non_psc" />
   <java-symbol type="bool" name="config_wifi_framework_enable_associated_network_selection" />
   <java-symbol type="bool" name="config_wifi_framework_use_single_radio_chain_scan_results_network_selection" />
   <java-symbol type="bool" name="config_wifi_only_link_same_credential_configurations" />
@@ -2370,14 +2372,23 @@
 
   <!-- From Phone -->
   <java-symbol type="bool" name="config_built_in_sip_phone" />
+  <java-symbol type="id" name="pip_window" />
+  <java-symbol type="id" name="minimize_window" />
+  <java-symbol type="id" name="back_window" />
   <java-symbol type="id" name="maximize_window" />
   <java-symbol type="id" name="close_window" />
   <java-symbol type="layout" name="decor_caption" />
   <java-symbol type="drawable" name="decor_caption_title_focused" />
   <java-symbol type="drawable" name="decor_close_button_dark" />
   <java-symbol type="drawable" name="decor_close_button_light" />
+  <java-symbol type="drawable" name="decor_minimize_button_dark" />
+  <java-symbol type="drawable" name="decor_minimize_button_light" />
   <java-symbol type="drawable" name="decor_maximize_button_dark" />
   <java-symbol type="drawable" name="decor_maximize_button_light" />
+  <java-symbol type="drawable" name="decor_pip_button_dark" />
+  <java-symbol type="drawable" name="decor_pip_button_light" />
+  <java-symbol type="drawable" name="decor_back_button_dark" />
+  <java-symbol type="drawable" name="decor_back_button_light" />
   <java-symbol type="color" name="decor_button_dark_color" />
   <java-symbol type="color" name="decor_button_light_color" />
   <java-symbol type="array" name="unloggable_phone_numbers" />
@@ -2649,6 +2660,7 @@
   <java-symbol type="bool" name="config_device_wfc_ims_available" />
   <java-symbol type="bool" name="config_carrier_wfc_ims_available" />
   <java-symbol type="bool" name="config_use_voip_mode_for_ims" />
+  <java-symbol type="bool" name="config_allow_ussd_over_ims" />
   <java-symbol type="attr" name="touchscreenBlocksFocus" />
   <java-symbol type="layout" name="resolver_list_with_default" />
   <java-symbol type="string" name="activity_resolver_set_always" />
@@ -3716,6 +3728,9 @@
   <!-- For WPA3 SoftaAp -->
   <java-symbol type="bool" name="config_wifi_wap3_sap_mode_enabled" />
 
+  <!-- For WPA3 SoftAp OWE AKM -->
+  <java-symbol type="bool" name="config_wifi_wap3_sap_owe_akm_enabled" />
+
   <java-symbol type="integer" name="config_defaultHapticFeedbackIntensity" />
   <java-symbol type="integer" name="config_defaultNotificationVibrationIntensity" />
   <java-symbol type="integer" name="config_defaultRingVibrationIntensity" />
@@ -3894,6 +3909,7 @@
 
   <java-symbol type="bool" name="config_automotiveHideNavBarForKeyboard" />
   <java-symbol type="bool" name="reset_geo_fencing_check_after_boot_or_apm" />
+  <java-symbol type="bool" name="config_enableAutoSuspend" />
 
   <!-- For shutdown animation -->
   <java-symbol type="bool" name="config_shutdownAnimationEnabled" />
